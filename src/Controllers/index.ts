@@ -6,12 +6,12 @@ export function getProducts(req: Request, res: Response) {
   res.status(200).json(products);
 }
 export function addProduct(req: TypedBody, res: Response) {
-  const { name, description, Stock } = req.body;
+  const { name, description, stock } = req.body;
   let newProduct: IProduct = {
     id: Math.floor(Math.random() * 100000),
     name,
     description,
-    Stock,
+    stock: stock,
   };
   products.push(newProduct);
   res.status(201).json({ message: "Product added successfully" });
@@ -29,10 +29,15 @@ export function getProduct(req: Request<{ id: string }>, res: Response) {
 export function updateProduct(req: Request<{ id: string }>, res: Response) {
   const id = +req.params.id;
   const product = products.find((x) => x.id === id);
+  const { name, description, stock } = req.body;
   if (product != undefined) {
-    return res
-      .status(200)
-      .json({ message: `Product ${product.name} updated successfully` });
+    //update product
+    product.id= id;
+    product.name = name;
+    product.description = description;
+    product.stock = stock;
+
+    return res.status(200).json({ message: `Product ${product.name} updated successfully` });
   }
   return res.status(404).json({ message: "Product not found" });
 }

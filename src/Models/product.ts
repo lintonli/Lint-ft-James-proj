@@ -3,13 +3,13 @@ export interface IProduct {
   id: number;
   name: string;
   description: string;
-  Stock: string;
+  stock: string;
 }
 
 export interface AddProduct {
   name: string;
   description: string;
-  Stock: string;
+  stock: string;
 }
 
 export interface TypedBody extends Request {
